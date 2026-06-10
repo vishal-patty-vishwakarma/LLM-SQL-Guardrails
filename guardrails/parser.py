@@ -30,12 +30,18 @@ def parse_sql(sql: str) -> ParsedQuery:
         result.errors.append(str(e))
         return result
 
-    result.statement_count = len(parsed)
-    result.statements = parsed
+    valid_statements = [s for s in parsed if s is not None]
+    failed_count = parsed.count(None)
 
-    for statement in parsed:
-        if statement is None:
-            continue
+    if failed_count > 0:
+        result.is_valid = False
+        result.errors.append(f"Could not parse {failed_count} statement(s). SQL may be incomplete or malformed.")
+        return result
+
+    result.statement_count = len(valid_statements)
+    result.statements = valid_statements
+
+    for statement in valid_statements:
         _extract_tables(statement, result)
         _extract_limit(statement, result)
         _extract_nesting(statement, result)

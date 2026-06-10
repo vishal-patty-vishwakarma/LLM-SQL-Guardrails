@@ -34,9 +34,12 @@ def _repair_sql(sql: str, question: str = "") -> str:
     repaired = re.sub(r"HAVING\s+(\w+\([^)]*\))\s*(>|<|>=|<=|=|!=)\s*;", rf"HAVING \1 \2 {default_val};", repaired)
     repaired = re.sub(r"HAVING\s+(\w+\([^)]*\))\s*(>|<|>=|<=|=|!=)\s*$", rf"HAVING \1 \2 {default_val}", repaired)
 
-    parsed = list(sqlglot.parse(repaired, read="sqlite"))
-    if parsed and parsed[0] is not None:
-        return repaired
+    try:
+        parsed = list(sqlglot.parse(repaired, read="sqlite"))
+        if parsed and parsed[0] is not None:
+            return repaired
+    except Exception:
+        pass
     return sql
 
 
