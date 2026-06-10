@@ -1,0 +1,17 @@
+.stApp {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.stChatMessage {
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.stDataFrame {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+code {
+    font-size: 0.85em;
+}

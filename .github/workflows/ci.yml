@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt pytest
+
+      - name: Create database
+        run: |
+          python -c "from database.connection import init_db; init_db()"
+
+      - name: Run tests (excluding LLM-dependent)
+        run: |
+          pytest tests/test_validator.py tests/test_pipeline.py::TestExecutor tests/test_pipeline.py::TestSchemaContext -v --tb=short

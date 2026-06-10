@@ -1,0 +1,22 @@
+[
+  {"id": "Q001", "question": "Show all products in the Electronics category", "tables": ["products", "categories"], "has_join": true, "has_aggregation": false},
+  {"id": "Q002", "question": "What's the total revenue by country?", "tables": ["orders", "customers"], "has_join": true, "has_aggregation": true},
+  {"id": "Q003", "question": "List customers who ordered more than 3 times", "tables": ["customers", "orders"], "has_join": true, "has_aggregation": true},
+  {"id": "Q004", "question": "Find products priced above the average", "tables": ["products"], "has_subquery": true, "has_aggregation": true},
+  {"id": "Q005", "question": "Monthly order count for 2024", "tables": ["orders"], "has_aggregation": true},
+  {"id": "Q006", "question": "Show the top 5 most expensive products", "tables": ["products"], "has_limit": true},
+  {"id": "Q007", "question": "How many customers are from each country?", "tables": ["customers"], "has_aggregation": true},
+  {"id": "Q008", "question": "List all orders with customer names", "tables": ["orders", "customers"], "has_join": true},
+  {"id": "Q009", "question": "What is the average order value?", "tables": ["orders"], "has_aggregation": true},
+  {"id": "Q010", "question": "Which products are out of stock?", "tables": ["products"]},
+  {"id": "Q011", "question": "Show the most popular product category by number of orders", "tables": ["order_items", "products", "categories", "orders"], "has_join": true, "has_aggregation": true},
+  {"id": "Q012", "question": "What was the total revenue in 2024?", "tables": ["orders"], "has_aggregation": true},
+  {"id": "Q013", "question": "List customers who have never placed an order", "tables": ["customers", "orders"], "has_join": true},
+  {"id": "Q014", "question": "Show the cancellation rate by country", "tables": ["orders", "customers"], "has_join": true, "has_aggregation": true},
+  {"id": "Q015", "question": "Which month had the highest sales?", "tables": ["orders"], "has_aggregation": true},
+  {"id": "Q016", "question": "Find customers who spent more than $500 total", "tables": ["customers", "orders"], "has_join": true, "has_aggregation": true},
+  {"id": "Q017", "question": "Show all orders with their items and product names", "tables": ["orders", "order_items", "products"], "has_join": true},
+  {"id": "Q018", "question": "What is the average price of products in each category?", "tables": ["products", "categories"], "has_join": true, "has_aggregation": true},
+  {"id": "Q019", "question": "List products that have never been ordered", "tables": ["products", "order_items"], "has_join": true},
+  {"id": "Q020", "question": "Show category hierarchy with parent names", "tables": ["categories"], "has_join": true}
+]
