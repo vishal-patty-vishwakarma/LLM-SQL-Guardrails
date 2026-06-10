@@ -11,4 +11,6 @@ data/*.db-wal
 dist/
 build/
 *.docx
+desktop.ini
+PROJECT_KNOWLEDGE_BASE.md
 
