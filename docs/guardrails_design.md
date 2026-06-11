@@ -19,25 +19,25 @@ sqlglot parses SQL into an Abstract Syntax Tree (AST), allowing precise checks:
 | Rule | Method | Edge Cases |
 |------|--------|------------|
 | G001 - DDL/DML | Check `extract_dml_type()` on each AST node | `DROP TABLE IF EXISTS`, `INSERT OR REPLACE` |
-| G003 - Transaction | Check SQL string starts with transaction keyword | Mixed case, extra whitespace |
-| G005 - Comments | Check string for `--` or `/*` | `'--'` in string literals (safe) |
-| G006 - Single statement | Count parsed statements | Accounting for CTEs (single statement with WITH) |
-| G008 - Dangerous functions | Walk AST for `load_extension()` | Case-insensitive, function aliases |
+| G002 - Transaction | Check SQL string starts with transaction keyword | Mixed case, extra whitespace |
+| G003 - Comments | Check string for `--` or `/*` | `'--'` in string literals (safe) |
+| G004 - Single statement | Count parsed statements | Accounting for CTEs (single statement with WITH) |
+| G005 - Dangerous functions | Walk AST for `load_extension()` | Case-insensitive, function aliases |
 
 ### Warn Rules (soft stop)
 
 | Rule | Method | Auto-fix? |
 |------|--------|-----------|
-| G007 - LIMIT | Check for `exp.Limit` node in tree | Could auto-add `LIMIT 1000` |
-| G009 - Nesting depth | Walk AST, count `exp.Subquery` + `exp.With` depth | Warn only |
-| G010 - Table join count | Count unique table references | Warn only |
+| G006 - LIMIT | Check for `exp.Limit` node in tree | Could auto-add `LIMIT 1000` |
+| G007 - Nesting depth | Walk AST, count `exp.Subquery` + `exp.With` depth | Warn only |
+| G008 - Table join count | Count unique table references | Warn only |
 
 ## Rule Registry Pattern
 
 ```python
 DEFAULT_RULES: list[Rule] = [
     Rule("G001", "Block DDL/DML", check_ddl_dml, action="block"),
-    Rule("G003", "Block transactions", check_transaction_control, action="block"),
+    Rule("G002", "Block transactions", check_transaction_control, action="block"),
     ...
 ]
 ```

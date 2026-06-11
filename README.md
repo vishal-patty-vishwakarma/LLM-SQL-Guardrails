@@ -80,13 +80,13 @@ Default is `phi` (3.8B, ~2.5GB). Swap in `config/settings.py` or `.env`:
 | Rule | Check | Action |
 |------|-------|--------|
 | G001 | Block DDL/DML (DROP, INSERT, etc.) | Block |
-| G003 | Block transaction control | Block |
-| G005 | Block SQL comments | Block |
-| G006 | Require single statement | Block |
-| G008 | Block dangerous functions | Block |
-| G007 | Require LIMIT clause | Warn |
-| G009 | Check nesting depth | Warn |
-| G010 | Check table join count | Warn |
+| G002 | Block transaction control | Block |
+| G003 | Block SQL comments | Block |
+| G004 | Require single statement | Block |
+| G005 | Block dangerous functions | Block |
+| G006 | Require LIMIT clause | Warn |
+| G007 | Check nesting depth | Warn |
+| G008 | Check table join count | Warn |
 
 ## Example Questions
 
