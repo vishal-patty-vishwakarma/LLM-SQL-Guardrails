@@ -44,7 +44,7 @@ def generate_sql_stream(prompt: str) -> Generator[str, None, SQLGeneration]:
     yield SQLGeneration(sql=sql, explanation=None, confidence=None)
 
 
-def _extract_sql(text: str) -> str:
+def _extract_sql(text: str, max_statements: int = 1) -> str:
     lines = text.split("\n")
     sql_lines = []
     in_code_block = False
@@ -59,7 +59,8 @@ def _extract_sql(text: str) -> str:
             sql_lines.append(line)
 
     if sql_lines:
-        return "\n".join(sql_lines).strip()
+        raw = "\n".join(sql_lines).strip()
+        return _take_first_statement(raw)
 
     for line in lines:
         stripped = line.strip().upper()
@@ -70,6 +71,15 @@ def _extract_sql(text: str) -> str:
             for ek in end_keywords:
                 if ek in sql:
                     sql = sql.split(ek)[0]
-            return sql.strip("; \n") + ";"
+            return _take_first_statement(sql.strip("; \n") + ";")
 
     return "SELECT 1 WHERE 1=0;"
+
+
+def _take_first_statement(sql: str) -> str:
+    parts = sql.split(";")
+    for part in parts:
+        stripped = part.strip()
+        if stripped.upper().startswith("SELECT") or stripped.upper().startswith("WITH"):
+            return stripped + ";"
+    return parts[0].strip() + ";"
