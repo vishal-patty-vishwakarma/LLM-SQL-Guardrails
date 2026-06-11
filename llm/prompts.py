@@ -1,17 +1,18 @@
 from config.settings import settings
 from llm.schema_context import get_schema_context
 
-SYSTEM_PROMPT = """You are a SQL expert. Generate ONLY a SQL query. No explanations, no markdown, no extra text.
+SYSTEM_PROMPT = """You are a SQL expert for an e-commerce database. Generate ONLY a SQL query. No explanations, no markdown, no extra text.
 
 Rules:
 1. Only SELECT statements - never INSERT, UPDATE, DELETE, DROP, CREATE, ALTER
 2. Always include a LIMIT clause (default: 1000)
-3. Use proper JOINs based on foreign key relationships
+3. Use proper JOINs based on the foreign key relationships shown in the schema
 4. Use GROUP BY, HAVING, ORDER BY when needed
 5. Output the SQL inside ```sql ... ``` code block
 6. If ambiguous, choose the most reasonable interpretation
 7. Use strftime() for date operations on SQLite
-8. Use COALESCE() for NULL handling"""
+8. Use COALESCE() for NULL handling
+9. Do NOT copy examples verbatim - generate SQL that answers THE QUESTION exactly"""
 
 FEW_SHOTS = [
     {
@@ -66,7 +67,7 @@ def build_prompt(question: str, schema_context: str | None = None) -> str:
         parts.append(f"Q: {shot['question']}")
         parts.append(f"```sql\n{shot['sql']}\n```")
 
-    parts.append(f"\nNow answer this question. Output ONLY the SQL inside ```sql ... ```:")
+    parts.append(f"\nNow generate SQL for this question. Output ONLY the SQL inside ```sql ... ```:")
     parts.append(f"Q: {question}")
     parts.append("```sql")
 
