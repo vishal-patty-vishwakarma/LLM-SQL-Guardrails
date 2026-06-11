@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     guardrails_max_join_tables: int = Field(default=8, description="Maximum tables in JOIN")
     guardrails_max_nesting_depth: int = Field(default=5, description="Maximum CTE/subquery nesting depth")
 
-    few_shot_count: int = Field(default=3, description="Number of few-shot examples in prompt")
+    few_shot_count: int = Field(default=4, description="Number of few-shot examples in prompt")
     schema_sample_rows: int = Field(default=1, description="Sample rows per table in schema context")
 
     log_level: str = Field(default="INFO", description="Logging level")

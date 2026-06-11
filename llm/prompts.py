@@ -27,6 +27,10 @@ FEW_SHOTS = [
         "sql": "SELECT c.first_name, c.last_name, c.email, COUNT(o.id) as order_count FROM customers c JOIN orders o ON c.id = o.customer_id GROUP BY c.id HAVING COUNT(o.id) > 3;"
     },
     {
+        "question": "Show orders with product names and quantities",
+        "sql": "SELECT o.id, o.order_date, p.name as product_name, oi.quantity, oi.unit_price FROM orders o JOIN order_items oi ON o.id = oi.order_id JOIN products p ON oi.product_id = p.id ORDER BY o.order_date DESC LIMIT 10;"
+    },
+    {
         "question": "Find products priced above the average",
         "sql": "SELECT name, price FROM products WHERE price > (SELECT AVG(price) FROM products);"
     },
